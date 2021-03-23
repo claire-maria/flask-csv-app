@@ -1,0 +1,58 @@
+<!doctype html>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+<html>
+  <head>
+    <title>CSV File Upload</title>
+  </head>
+  <body>
+    <div class="heading head">
+      <h1>Upload CSV file</h1>
+      </br>
+      <ul class="navbar-nav">
+        <div class = "heading buttons" >
+          <form method="POST" action="" enctype="multipart/form-data">
+            <p><input type="file" name="file"></p>
+            <p><input type="submit" value="Submit"></p>
+          </form>
+          <form action="/download/" method="post">
+            <button name="DownloadRecent" type="submit">Download Most Recent CSV File</button>
+          </form>
+        </div>
+      </ul>
+    </div>
+    <ul>
+      {% for table in all_tables %}
+        <p style = "text-transform: uppercase; margin-right: 10px ;">{{ table }} </p>
+        <div style = "display: inline-block; margin-top: 15px; margin-right: 10px ">
+          <div style = "display: inline-block">
+            <form action="/display/" method="post" novalidate>
+              <button name="Display" type="submit" value = {{table}}>Display CSV</button>
+            </form> 
+          </div>
+          <div  style = "display: inline-block">
+            <form action="/stats/" method="post" novalidate>
+              <button name="Stats" type="submit" value = {{table}}>Stats on Age Column</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </ul>
+    {% for mesg in get_flashed_messages() %}
+    <h4>{{ mesg }}</h4>
+    {% endfor %}
+    <table>
+    {% if display_table %}
+      {% for table in display_table %}
+        {{ table|safe }}
+      {% endfor %}
+    {% endif %}
+    </table>
+    <table>
+    {% if stats_table %}
+      {% for table in stats_table %}
+                {{ table|safe }}
+      {% endfor %}
+    {% endif %}
+    </table>
+  </body>
+</html>
