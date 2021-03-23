@@ -7,7 +7,6 @@ mysql-connector-python==8.0.23
 numpy==1.19.5
 oauth==1.0.1
 pandas==1.1.5
-Pillow==5.1.0
 pipreqs==0.4.10
 py==1.10.0
 PyMySQL==1.0.2
